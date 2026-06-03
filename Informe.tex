@@ -1,34 +1,109 @@
-﻿\documentclass[12pt,a4paper]{article}
-\usepackage[spanish]{babel}
+\documentclass[12pt,a4paper]{article}
+
+% -----------------------------------------------------------------------
+% Paquetes de idioma y codificación
+% -----------------------------------------------------------------------
+\usepackage[spanish,es-tabla]{babel} % %%% NUEVO: 'es-tabla' para que diga "Tabla" y no "Cuadro"
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{geometry}
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{hyperref}
-\geometry{margin=2.5cm}
 
-\title{Informe sobre Virtualización de Infraestructura para Sistemas Distribuidos}
-\author{Nombre(s) del/los integrante(s) \\\ Asignatura \\\ Docente}
+% -----------------------------------------------------------------------
+% Márgenes y geometría de página
+% -----------------------------------------------------------------------
+\usepackage{geometry}
+\geometry{
+  a4paper,
+  left=2.5cm, right=2.5cm,
+  top=2.5cm,  bottom=2.5cm,
+  headheight=15pt % %%% NUEVO: Aumentado a 15pt para evitar warnings de fancyhdr
+}
+
+% -----------------------------------------------------------------------
+% Tipografía y control de párrafos
+% -----------------------------------------------------------------------
+\usepackage{microtype}          % Mejora la tipografía en general
+
+%%% NUEVO: Evita que los párrafos se salgan del margen derecho (Overfull \hbox)
+\setlength{\emergencystretch}{3em} 
+
+%%% NUEVO: Evita líneas viudas y huérfanas (párrafos cortados al inicio/fin de página)
+\widowpenalty=10000
+\clubpenalty=10000
+\raggedbottom % Evita que LaTeX estire el texto verticalmente de forma extraña
+
+% -----------------------------------------------------------------------
+% Tablas
+% -----------------------------------------------------------------------
+\usepackage{booktabs}           % Reglas de tabla de tres líneas
+\usepackage{tabularx}           % Tablas de ancho fijo con columnas flexibles
+\usepackage{array}              % Control avanzado de columnas
+\usepackage{longtable}          % Tablas largas multipágina (si se necesita)
+
+%%% NUEVO: \hspace{0pt} permite que LaTeX separe en sílabas la PRIMERA palabra de la celda.
+%%% Esto es vital para que las columnas estrechas no rompan el margen.
+\newcolumntype{Y}{>{\raggedright\arraybackslash\hspace{0pt}}X}
+
+% -----------------------------------------------------------------------
+% Encabezados y pies de página
+% -----------------------------------------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Virtualización de Infraestructura para Sistemas Distribuidos}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% -----------------------------------------------------------------------
+% Hipervínculos y URLs
+% -----------------------------------------------------------------------
+\usepackage{xurl} % %%% NUEVO: Permite que los links y URLs largos se corten en cualquier parte y no salgan del margen
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue,
+  citecolor=black
+}
+
+% -----------------------------------------------------------------------
+% Espaciado entre líneas
+% -----------------------------------------------------------------------
+\usepackage{setspace}
+\setstretch{1.15}
+
+% -----------------------------------------------------------------------
+% Metadatos del documento
+% -----------------------------------------------------------------------
+\title{%
+  \textbf{Informe sobre Virtualización de Infraestructura}\\[0.3em]
+  \large para Sistemas Distribuidos
+}
+\author{Nombre(s) del/los integrante(s) \\ Asignatura \\ Docente}
 \date{Fecha}
 
+% =======================================================================
 \begin{document}
+% =======================================================================
+
 \maketitle
 \thispagestyle{empty}
 
 \vspace{2cm}
 \begin{center}
-\textit{\large Plantilla de informe sin contenido. Reemplace los apartados con su trabajo.}
+  \textit{\large Plantilla de informe sin contenido.
+    Reemplace los apartados con su trabajo.}
 \end{center}
 
 \newpage
 \tableofcontents
 \newpage
 
+% -----------------------------------------------------------------------
 \section{Introducción}
 \label{sec:introduccion}
 % Breve presentación del tema y su importancia para los sistemas distribuidos.
 
+% -----------------------------------------------------------------------
 \section{Conceptos fundamentales}
 \label{sec:conceptos}
 % Explicación de virtualización de servidores e infraestructura.
@@ -57,10 +132,13 @@
 \subsection{Infraestructura como servicio (IaaS)}
 % Definición de IaaS.
 
+% -----------------------------------------------------------------------
 \section{Relación con sistemas distribuidos}
 \label{sec:relacion}
-% Explicación de cómo la virtualización ayuda al funcionamiento de sistemas distribuidos.
+% Explicación de cómo la virtualización ayuda al funcionamiento de
+% sistemas distribuidos.
 
+% -----------------------------------------------------------------------
 \section{Herramientas y soluciones actuales}
 \label{sec:herramientas}
 % Descripción de las cuatro herramientas seleccionadas.
@@ -77,25 +155,34 @@
 \subsection{Herramienta 4}
 % Qué es, modelo de uso, propósito, ventaja y limitación.
 
+% -----------------------------------------------------------------------
 \section{Matriz comparativa simplificada}
 \label{sec:matriz}
-\begin{table}[ht]
-\centering
-\begin{tabular}{@{}llllll@{}}
-\toprule
-Herramienta o solución & Tipo de tecnología & Modelo de uso & Ventaja principal & Limitación o desafío & Uso recomendado en sistemas distribuidos \\
-\midrule
-% Rellene las filas con las herramientas seleccionadas.
-\textit{Herramienta 1} & & & & & \\
-\textit{Herramienta 2} & & & & & \\
-\textit{Herramienta 3} & & & & & \\
-\textit{Herramienta 4} & & & & & \\
-\bottomrule
-\end{tabular}
-\caption{Matriz comparativa de herramientas y soluciones de virtualización.}
-\label{tab:matriz-comparativa}
+
+\begin{table}[htbp]
+  \caption{Matriz comparativa de herramientas y soluciones de virtualización.}
+  \label{tab:matriz-comparativa}
+  %%% NUEVO: Cambiado a \footnotesize para que el texto quepa mejor en 6 columnas
+  \footnotesize 
+  \renewcommand{\arraystretch}{1.5} % Un poco más de espacio vertical
+  \begin{tabularx}{\textwidth}{@{} Y Y Y Y Y Y @{}}
+    \toprule
+    \textbf{Herramienta / Solución}
+      & \textbf{Tipo de tecnología}
+      & \textbf{Modelo de uso}
+      & \textbf{Ventaja principal}
+      & \textbf{Limitación o desafío}
+      & \textbf{Uso recomendado en sistemas} \\ % "distribuidos" cortado para no forzar la primera fila
+    \midrule
+    \textit{Herramienta 1} & & & & & \\[2pt]
+    \textit{Herramienta 2} & & & & & \\[2pt]
+    \textit{Herramienta 3} & & & & & \\[2pt]
+    \textit{Herramienta 4} & & & & & \\
+    \bottomrule
+  \end{tabularx}
 \end{table}
 
+% -----------------------------------------------------------------------
 \section{Usos en contextos reales}
 \label{sec:usos}
 % Análisis de dos contextos reales.
@@ -106,38 +193,50 @@ Herramienta o solución & Tipo de tecnología & Modelo de uso & Ventaja principa
 \subsection{Contexto real 2}
 % Explicación del segundo contexto real.
 
+% -----------------------------------------------------------------------
 \section{Tabla de usos en contextos reales}
 \label{sec:tabla-usos}
-\begin{table}[ht]
-\centering
-\begin{tabular}{@{}llllll@{}}
-\toprule
-Contexto real & Necesidad principal & Solución aplicable & Componentes distribuidos involucrados & Beneficio principal & Riesgo o desafío \\
-\midrule
-% Rellene las filas con los dos contextos analizados.
-\textit{Contexto 1} & & & & & \\
-\textit{Contexto 2} & & & & & \\
-\bottomrule
-\end{tabular}
-\caption{Tabla de usos de la virtualización en contextos reales.}
-\label{tab:usos-contexto}
+
+\begin{table}[htbp]
+  \caption{Tabla de usos de la virtualización en contextos reales.}
+  \label{tab:usos-contexto}
+  %%% NUEVO: Cambiado a \footnotesize
+  \footnotesize
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabularx}{\textwidth}{@{} Y Y Y Y Y Y @{}}
+    \toprule
+    \textbf{Contexto real}
+      & \textbf{Necesidad principal}
+      & \textbf{Solución aplicable}
+      & \textbf{Componentes distribuidos}
+      & \textbf{Beneficio principal}
+      & \textbf{Riesgo o desafío} \\
+    \midrule
+    \textit{Contexto 1} & & & & & \\[2pt]
+    \textit{Contexto 2} & & & & & \\
+    \bottomrule
+  \end{tabularx}
 \end{table}
 
+% -----------------------------------------------------------------------
 \section{Conclusiones}
 \label{sec:conclusiones}
-% Síntesis de lo aprendido y utilidad de la virtualización para infraestructura distribuida.
+% Síntesis de lo aprendido y utilidad de la virtualización para
+% infraestructura distribuida.
 
+% -----------------------------------------------------------------------
 \section{Declaración de uso de herramientas de IA}
 \label{sec:ia}
 % Indicar si se usaron herramientas de IA, cuáles y para qué propósito.
 
+% -----------------------------------------------------------------------
 \section{Referencias}
 \label{sec:referencias}
 \begin{itemize}
-\item Fuente 1.
-\item Fuente 2.
-\item Fuente 3.
-\item Fuente 4.
+  \item Fuente 1.
+  \item Fuente 2.
+  \item Fuente 3.
+  \item Fuente 4.
 \end{itemize}
 
 \end{document}
